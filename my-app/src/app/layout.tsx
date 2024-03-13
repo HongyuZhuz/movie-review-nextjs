@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from 'flowbite-react';
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
+const user=null
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +19,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div>
+          <Nav/>
+        </div>
+        <div>
+          {children}
+        </div>
+        </body>
     </html>
   );
+}
+
+const Nav =()=>{
+  return(
+    <Navbar fluid rounded>
+      <NavbarBrand as={Link} href="https://flowbite-react.com">
+        <img src="/vercel.svg" className="mr-3 h-6 sm:h-9" alt="Movie reviews Logo" />
+        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Movie Reviews</span>
+      </NavbarBrand>
+      <NavbarToggle />
+      <NavbarCollapse>
+        <NavbarLink href="/movies" active>
+          Home
+        </NavbarLink>
+        <NavbarLink as={Link} href="#">
+          {user?(<a>Logout User</a>):(<Link href="/login">Login</Link>)}
+        </NavbarLink>
+      </NavbarCollapse>
+    </Navbar>
+  )
 }
